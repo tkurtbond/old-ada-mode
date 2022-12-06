@@ -27,7 +27,9 @@ commit.
 This formed the initial checking for this repository.
 
 It turns out that Emacs 28 doesn't automatically add ada files to
-``auto-mode-alist`` (see issue #2).  So, do the following:
+``auto-mode-alist`` (see `issue #2`_).  So, do the following:
+
+.. _issue #2: https://github.com/tkurtbond/old-ada-mode/issues/2
 
 .. code:: emacs-lisp
 
