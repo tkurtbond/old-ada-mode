@@ -4165,11 +4165,12 @@ Return value is the position of the first non-ws behind the last unclosed
 parenthesis, or nil."
   (save-excursion
     (let ((parse (parse-partial-sexp
-		  (point)
+                  ;; In Emacs 28, TO has to be greater than FROM.
 		  (or (car (ada-search-ignore-complex-boolean
 			    "\\<\\(;\\|is\\|then\\|loop\\|begin\\|else\\)\\>"
 			    t))
-		      (point-min)))))
+		      (point-min))
+		  (point))))
 
       (if (nth 1 parse)
 	  (progn
