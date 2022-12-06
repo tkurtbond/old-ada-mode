@@ -10,10 +10,9 @@ navigation, to work after trying on several operating systems.
 
 However, the old version worked fine for me.
 
-So I dug it
-out of the `Emacs git repository`_ at `savannah.gnu.org`_.  Basically,
-I cloned the git repository and then figured out what commit it was
-deleted in by doing::
+So I dug it out of the `Emacs git repository`_ at `savannah.gnu.org`_.
+Basically, I cloned the git repository and then figured out what
+commit it was deleted in by doing::
 
   $ git rev-list HEAD -n 1 -- lisp/progmodes/ada-mode.el
   a13c64204c8ead966789abf8efe176e4f2d4f599
@@ -26,5 +25,13 @@ The ``^`` at the end of the commit hash says to get the previous
 commit.
 
 This formed the initial checking for this repository.
+
+It turns out that Emacs 28 doesn't automatically add ada files to
+``auto-mode-alist`` (see issue #2).  So, do the following:
+
+.. code:: emacs-lisp
+
+   (cl-loop for ext in '("\\.gpr$" "\\.ada$" "\\.ads$" "\\.adb$")
+              do (add-to-list 'auto-mode-alist (cons ext 'ada-mode)))
 
 
