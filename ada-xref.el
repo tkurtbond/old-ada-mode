@@ -319,7 +319,7 @@ CROSS-PREFIX is the prefix to use for the `gnatls' command."
                                    "."
 				 (buffer-substring-no-properties
 				  (point)
-				  (point-at-eol))))
+				  (pos-eol))))
 		  (forward-line 1))
 
 		;;  Object path
@@ -333,7 +333,7 @@ CROSS-PREFIX is the prefix to use for the `gnatls' command."
                                    "."
 				 (buffer-substring-no-properties
 				  (point)
-				  (point-at-eol))))
+				  (pos-eol))))
 		  (forward-line 1))
 		)
 	    (kill-buffer nil))))
@@ -1053,7 +1053,8 @@ existing buffer `*gnatfind*', if there is one."
 
 ;; ----- Identifier Completion --------------------------------------------
 (defun ada-complete-identifier (pos)
-  "Try to complete the identifier around POS, using compiler cross-reference information."
+  "Try to complete the identifier around POS, using compiler cross-reference
+information."
   (interactive "d")
   (ada-require-project-file)
 
@@ -1407,8 +1408,8 @@ project file."
 	  (setq cmd (concat cmd "--tty")))
 
       (if (and (string-match "jdb" (comint-arguments cmd 0 0))
-	       (boundp 'jdb))
-	  (funcall (symbol-function 'jdb) cmd)
+	       (boundp #'jdb))
+	  (funcall #'jdb cmd)
 	(gdb cmd))
 
       ;;  Restore the standard fset command (or for instance C-U M-x shell
@@ -1798,7 +1799,7 @@ Information is extracted from the ali file."
     (beginning-of-line)
     (if declaration-found
 	(let ((current-line (buffer-substring
-			     (point) (point-at-eol))))
+			     (point) (pos-eol))))
 	  (save-excursion
 	    (forward-line 1)
 	    (beginning-of-line)
